@@ -19,7 +19,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0.)
     quantity = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='products_images', blank=True)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    categories = models.ManyToManyField(ProductCategory)
 
     def __str__(self):
-        return f'{self.name} | {self.category.name}'
+        return f"{self.name} | {', '.join([category[1] for category in self.categories.values_list()])}"
