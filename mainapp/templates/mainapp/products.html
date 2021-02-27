@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load staticfiles %}
+{% load additional_formating %}
 
 {% block css %}
     <link href="{% static 'css/products.css' %}" rel="stylesheet">
@@ -67,7 +68,7 @@
                                     <h4 class="card-title">
                                         <a href="#">{{ product.name }}</a>
                                     </h4>
-                                    <h5>{{ product.price }} руб.</h5>
+                                    <h5>{{ product.price|pricing }} руб.</h5>
                                     <p class="card-text">{{ product.short_description }}</p>
                                 </div>
                                 <div class="card-footer text-center">
