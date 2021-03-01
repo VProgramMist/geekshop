@@ -1,8 +1,5 @@
 from django.shortcuts import render
-import json
-import os
-
-module_dir = os.path.dirname(__file__)
+from mainapp.models import Product, ProductCategory
 
 
 def index(request):
@@ -10,9 +7,10 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-def products(request):
-    import os
-    file_path = os.path.join(module_dir, 'fixtures/products.json')
-    context = {'title': 'GeekShop - Каталог'}
-    context.update(json.load(open(file_path, encoding='utf-8')))
+def products(request, cat_key=None):
+    context = {
+        'title': 'GeekShop - Каталог',
+        'products': Product.objects.all() if cat_key is None else Product.objects.filter(categories=cat_key),
+        'categories': ProductCategory.objects.all(),
+    }
     return render(request, 'mainapp/products.html', context)
