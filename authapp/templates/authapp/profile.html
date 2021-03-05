@@ -22,7 +22,7 @@
                 </div>
                 <form action="{% url 'auth:profile' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="form-row">
+                    <div class="form-row mb-3">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row mb-2">
+                    <div class="form-row mb-3">
                         <div class="col-lg-12">
                             <div class="custom-file">
                                 {{ form.avatar }}
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row mb-3">
                         <div class="col-lg-6">
                             <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
                             {{ form.username }}
@@ -55,7 +55,7 @@
                             {{ form.email }}
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row mb-3">
                         <div class="col-lg-6">
                             <label class="small mb-1" for="{{ form.birth_date.id_for_label }}">День рождения</label>
                             {{ form.birth_date }}
