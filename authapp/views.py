@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib import messages
+from django.db.models import Sum
 
 from authapp.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from basketapp.models import Basket
@@ -29,7 +30,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Вы успешно зарегистрировались!')
-            return HttpResponseRedirect(reverse('authapp:login'))
+            return HttpResponseRedirect(reverse('auth:login'))
     else:
         form = UserRegisterForm()
     context = {'form': form}
@@ -46,11 +47,16 @@ def profile(request):
         form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user, )
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('authapp:profile'))
+            messages.success(request, 'Изменения успешно внесены!')
+            return HttpResponseRedirect(reverse('auth:profile'))
     else:
         form = UserProfileForm(instance=request.user)
+
+    basket = Basket.objects.all()
     context = {
         'form': form,
-        'basket': Basket.objects.all(),
+        'basket': basket,
+        'total_sum': sum([elem.quantity * elem.product.price for elem in basket]) if basket else 0,
+        'total_count': sum([elem.quantity for elem in basket]) if basket else 0,
     }
     return render(request, 'authapp/profile.html', context)
