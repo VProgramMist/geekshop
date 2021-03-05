@@ -13,11 +13,11 @@
                     <div class="row text-center">
                         <div class="col-lg-4">
                             <input name="basketID" type="number" class="form-control"
-                                   value="{{ elem.quantity }}" min="0">
+                                   value="{{ elem.quantity }}" min="1">
                         </div>
                         <div class="col-lg-4">2 390 руб.</div>
                         <div class="col-lg-4">
-                            <a href="#">
+                            <a href="{% url 'basket_elements:basket_delete' elem.id %}">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </div>

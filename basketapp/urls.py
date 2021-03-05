@@ -5,5 +5,6 @@ import basketapp.views as basketapp
 app_name = 'authapp'
 
 urlpatterns = [
-   path('login-add/<int:product_id>/', basketapp.basket_add, name='baket_add'),
+   path('basket-add/<int:product_id>/', basketapp.basket_add, name='basket_add'),
+   path('basket-delete/<int:id>/', basketapp.basket_delete, name='basket_delete'),
 ]
