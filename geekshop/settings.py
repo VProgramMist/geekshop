@@ -68,7 +68,6 @@ TEMPLATES = [
             ],
             'libraries': {
                 'additional_formating': 'mainapp.templatetags.additional_formating',
-
             }
         },
     },

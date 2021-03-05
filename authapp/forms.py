@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from authapp.models import User
 from django import forms
+from authapp.widgets import CustomImageWidget, CustomDateWidget
 
 
 class DateInput(forms.DateInput):
@@ -42,7 +43,8 @@ class UserProfileForm(UserChangeForm):
         model = User
         fields = ('first_name', 'last_name', 'username', 'avatar', 'birth_date', 'email')
         widgets = {
-            'birth_date': DateInput()
+            'birth_date': CustomDateWidget(),
+            'avatar': CustomImageWidget(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -50,6 +52,7 @@ class UserProfileForm(UserChangeForm):
         self.fields['username'].widget.attrs['readonly'] = True
         self.fields['email'].widget.attrs['readonly'] = True
         for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control py-4'
+            if field != self.fields['avatar']:
+                field.widget.attrs['class'] = 'form-control py-4'
 
 
