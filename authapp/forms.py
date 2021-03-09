@@ -1,5 +1,11 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from authapp.models import User
+from django import forms
+from authapp.widgets import CustomImageWidget, CustomDateWidget
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
 class UserLoginForm(AuthenticationForm):
@@ -27,6 +33,26 @@ class UserRegisterForm(UserCreationForm):
         self.fields['username'].widget.attrs['placeholder'] = 'Введите имя пользователя'
         self.fields['email'].widget.attrs['placeholder'] = 'Введите адрес эл. почты'
         self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
-        self.fields['password2'].widget.attrs['placeholder'] = 'подтвердите пароль'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Подтвердите пароль'
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control py-4'
+
+
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'avatar', 'birth_date', 'email')
+        widgets = {
+            'birth_date': CustomDateWidget(),
+            'avatar': CustomImageWidget(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['readonly'] = True
+        self.fields['email'].widget.attrs['readonly'] = True
+        for field in self.fields.values():
+            if field != self.fields['avatar']:
+                field.widget.attrs['class'] = 'form-control py-4'
+
+
