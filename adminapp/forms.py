@@ -1,5 +1,3 @@
-from django import forms
-
 from authapp.forms import UserRegisterForm, UserProfileForm
 from authapp.models import User
 from authapp.widgets import CustomImageWidget

@@ -22,4 +22,4 @@ class Product(models.Model):
     categories = models.ManyToManyField(ProductCategory)
 
     def __str__(self):
-        return f"{self.name} | {', '.join([category[1] for category in self.categories.values_list()])}"
+        return self.name
