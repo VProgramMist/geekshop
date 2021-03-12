@@ -7,4 +7,5 @@ app_name = 'authapp'
 urlpatterns = [
    path('basket-add/<int:product_id>/', basketapp.basket_add, name='basket_add'),
    path('basket-delete/<int:id>/', basketapp.basket_delete, name='basket_delete'),
+   path('basket-edit/<int:id>/<int:quantity>/', basketapp.basket_edit, name='basket_edit'),
 ]

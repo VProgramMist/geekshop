@@ -15,3 +15,11 @@ class Basket(models.Model):
     @property
     def sum(self):
         return self.quantity * self.product.price
+
+    def total_sum(self):
+        return sum([elem.quantity * elem.product.price for elem in
+                    Basket.objects.filter(user=self.user)]) if Basket.objects.filter(user=self.user) else 0
+
+    def total_count(self):
+        return sum([elem.quantity for elem in Basket.objects.filter(user=self.user)]) if Basket.objects.filter(
+            user=self.user) else 0
