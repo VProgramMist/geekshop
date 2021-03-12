@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
-from authapp.models import User
 from django import forms
+
+from authapp.models import User
 from authapp.widgets import CustomImageWidget, CustomDateWidget
 
 
